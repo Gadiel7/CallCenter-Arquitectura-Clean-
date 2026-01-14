@@ -9,7 +9,11 @@ namespace Domain.Interfaces
 {
     public interface IContactoCallCenter
     {
-        Task AddAsync(ContactoCallCenter contacto);
+        Task<List<ContactoCallCenter>> GetAllAsync();
+
         Task<List<ContactoCallCenter>> GetByEstudianteIdAsync(int estudianteId);
+
+        Task RegistrarContactoAsync(ContactoCallCenter contacto);
+    
     }
 }

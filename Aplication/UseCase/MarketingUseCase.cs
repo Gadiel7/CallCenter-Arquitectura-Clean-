@@ -27,5 +27,6 @@ namespace Aplication.UseCase
             var estudiantes = await _estudianteRepositorio.GetAllAsync();
             return _mapper.Map<List<EstudianteMarketingDto>>(estudiantes);
         }
+       
     }
 }

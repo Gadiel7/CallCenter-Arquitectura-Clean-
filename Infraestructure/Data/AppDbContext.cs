@@ -18,5 +18,7 @@ namespace Infraestructure.Data
 
         public DbSet<Estudiante> Estudiantes { get; set; }
         public DbSet<ContactoCallCenter> ContactosCallCenter { get; set; }
+        
+
     }
 }

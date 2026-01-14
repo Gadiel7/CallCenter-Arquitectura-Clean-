@@ -1,38 +1,39 @@
 ﻿using Aplication.DTOs;
-using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aplication.UseCase
 {
     public class ContactoCallCenterUseCase
     {
-        private readonly IContactoCallCenter _repositorio;
-        private readonly IMapper _mapper;
+        private readonly IContactoCallCenter _contactoCallCenter;
 
-        public ContactoCallCenterUseCase(
-            IContactoCallCenter repositorio,
-            IMapper mapper)
+        public ContactoCallCenterUseCase(IContactoCallCenter contactoCallCenter)
         {
-            _repositorio = repositorio;
-            _mapper = mapper;
+            _contactoCallCenter = contactoCallCenter;
         }
 
         public async Task RegistrarContacto(ContactoCallCenterDto dto)
         {
-            var entidad = _mapper.Map<ContactoCallCenter>(dto);
-            await _repositorio.AddAsync(entidad);
+            var contacto = new ContactoCallCenter
+            {
+                EstudianteId = dto.EstudianteId,
+                FechaContacto = DateTime.Now,
+                Estado = dto.Estado
+            };
+
+            // ✅ MÉTODO CORRECTO
+            await _contactoCallCenter.RegistrarContactoAsync(contacto);
         }
 
-        public async Task<List<ContactoCallCenterDto>> ObtenerPorEstudiante(int estudianteId)
+        public async Task<List<ContactoCallCenter>> ObtenerPorEstudiante(int estudianteId)
         {
-            var contactos = await _repositorio.GetByEstudianteIdAsync(estudianteId);
-            return _mapper.Map<List<ContactoCallCenterDto>>(contactos);
+            return await _contactoCallCenter.GetByEstudianteIdAsync(estudianteId);
         }
+        public async Task<List<ContactoCallCenter>> ObtenerTodos()
+        {
+            return await _contactoCallCenter.GetAllAsync();
+        }
+
     }
 }

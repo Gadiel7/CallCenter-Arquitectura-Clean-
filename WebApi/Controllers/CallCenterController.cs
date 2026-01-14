@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
-    /// <summary>
+    
     /// Módulo de Call Center: consulta y seguimiento de contactos
-    /// </summary>
+    
     [ApiController]
     [Route("api/[controller]")]
     public class CallCenterController : ControllerBase
@@ -22,9 +22,9 @@ namespace WebApi.Controllers
             _contactoUseCase = contactoUseCase;
         }
 
-        /// <summary>
+        
         /// Obtiene los datos de un estudiante para contacto
-        /// </summary>
+        
         [HttpGet("estudiantes/{id}")]
         public async Task<IActionResult> ObtenerEstudiante(int id)
         {
@@ -36,9 +36,9 @@ namespace WebApi.Controllers
             return Ok(estudiante);
         }
 
-        /// <summary>
+        
         /// Registra un contacto realizado por el Call Center
-        /// </summary>
+        
         [HttpPost("contacto")]
         public async Task<IActionResult> RegistrarContacto(
             [FromBody] ContactoCallCenterDto dto)
@@ -48,9 +48,9 @@ namespace WebApi.Controllers
         }
         
 
-        /// <summary>
+
         /// Obtiene el historial de contactos de un estudiante
-        /// </summary>
+        
         [HttpGet("contactos/{estudianteId}")]
         public async Task<IActionResult> ObtenerContactos(int estudianteId)
         {

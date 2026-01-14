@@ -12,5 +12,6 @@ namespace Domain.Entities
         public int EstudianteId { get; set; }
         public DateTime FechaContacto {  get; set; }
         public string Estado { get; set; } = string.Empty;
+        public Estudiante Estudiante { get; set; } = null!;
     }
 }

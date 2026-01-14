@@ -2,10 +2,8 @@
 using Domain.Interfaces;
 using Infraestructure.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Infraestructure.Repositorios
@@ -19,17 +17,25 @@ namespace Infraestructure.Repositorios
             _context = context;
         }
 
-        public async Task AddAsync(ContactoCallCenter contacto)
+        // ✅ NUEVO: requerido por el Dashboard
+        public async Task<List<ContactoCallCenter>> GetAllAsync()
         {
-            _context.Set<ContactoCallCenter>().Add(contacto);
-            await _context.SaveChangesAsync();
+            return await _context.ContactosCallCenter.ToListAsync();
         }
 
         public async Task<List<ContactoCallCenter>> GetByEstudianteIdAsync(int estudianteId)
         {
-            return await _context.Set<ContactoCallCenter>()
+            return await _context.ContactosCallCenter
                 .Where(c => c.EstudianteId == estudianteId)
+                .OrderByDescending(c => c.FechaContacto)
                 .ToListAsync();
         }
+
+        public async Task RegistrarContactoAsync(ContactoCallCenter contacto)
+        {
+            _context.ContactosCallCenter.Add(contacto);
+            await _context.SaveChangesAsync();
+        }
+        
     }
 }
